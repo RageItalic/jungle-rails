@@ -20,6 +20,8 @@ Rails.application.routes.draw do
   resources :orders, only: [:create, :show]
 
   namespace :admin do
+    # http_basic_authenticate_with name: ENV['AUTH_NAME'], password: ENV['AUTH_PASSWORD'], except: :index
+
     root to: 'dashboard#show'
     resources :products, except: [:edit, :update, :show]
     resources :categories
