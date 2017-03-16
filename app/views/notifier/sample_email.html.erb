@@ -1,13 +1,11 @@
-<section class="orders-show">
-
-  <header class="page-header">
-    <h1>Order #<%= @order.id %></h1>
-  </header>
-
-  <div class="order-summary jumbotron">
-    <h4>Thank you for your order <%= current_user.email%>!</h4>
-
-  <div class="panel panel-default items">
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Thank you for placing your order!! Below is your order summary.</h1>
+      <div class="panel panel-default items">
     <table class="table table-bordered">
       <thead>
         <tr>
@@ -24,9 +22,7 @@
               <td><%= image_tag  my_order.product.image.tiny %></td>
               <td> <%= my_order.product.name %></td>
               <td><%= my_order.product.description %></td>
-              <td>
-                <%= (my_order.total_price_cents) / 100 %>
-              </td>
+              <td><%= (my_order.total_price_cents) / 100 %></td>
             </tr>
           <% end %>
          </div>
@@ -37,12 +33,5 @@
       </tfoot>
     </table>
   </div>
-
-
-
-
-  </div>
-
-  <%= link_to "Continue Shopping", root_path, class: 'btn btn-lg btn-primary' %>
-<%= console %>
-</section>
+  </body>
+</html>

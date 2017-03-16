@@ -2,6 +2,7 @@ class OrdersController < ApplicationController
 
   def show
     @order = Order.find(params[:id])
+    #byebug
   end
 
   def create
@@ -11,12 +12,15 @@ class OrdersController < ApplicationController
     if order.valid?
       empty_cart!
       redirect_to order, notice: 'Your Order has been placed.'
+      # notification_email = Notifier.sample_email(current_user)
+      # notification_email.deliver_now
     else
       redirect_to cart_path, error: order.errors.full_messages.first
     end
 
-  rescue Stripe::CardError => e
-    redirect_to cart_path, error: e.message
+    rescue Stripe::CardError => e
+      redirect_to cart_path, error: e.message
+    end
   end
 
   private
@@ -52,9 +56,30 @@ class OrdersController < ApplicationController
         )
       end
     end
+
     order.save!
+    notification_email = Notifier.sample_email(current_user, order)
+    notification_email.deliver_now
     order
   end
+
+  # def order_summary
+  #   cart.each do |product_id, details|
+  #     if product = Product.find_by(id: product_id)
+  #       quantity = details['quantity'].to_i
+  #       product_name = product.name,
+  #       description = product.description,
+  #       image = product.image
+  #       order.line_items.new(
+  #         product: product,
+  #         quantity: quantity,
+  #         name: product_name,
+  #         description: prod
+  #       )
+  #     end
+  #   end
+  # end
+
 
   # returns total in cents not dollars (stripe uses cents as well)
   def cart_total
@@ -67,4 +92,3 @@ class OrdersController < ApplicationController
     total
   end
 
-end
