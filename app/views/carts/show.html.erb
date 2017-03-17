@@ -4,6 +4,9 @@
     <h1>My Cart</h1>
   </header>
 
+  <% @cart_total = 0 %>
+  <% if cart.length > 0 %>
+
   <div class="panel panel-default items">
     <table class="table table-bordered">
       <thead>
@@ -15,10 +18,9 @@
         </tr>
       </thead>
       <tbody>
-        <% @cart_total = 0 %>
-        <% cart.each do |product_id, details| %>
-          <%= render 'item', product_id: product_id, details: details %>
-        <% end %>
+          <% cart.each do |product_id, details| %>
+            <%= render 'item', product_id: product_id, details: details %>
+          <% end %>
       </tbody>
       <tfoot>
         <tr>
@@ -43,11 +45,15 @@
           data-name="Jungle"
           data-description="<%= current_user.first_name %>'s Jungle Order"
           data-locale="auto"
-          data-email="kvirani@gmail.com"
+          data-email="<%= current_user.email %>"
           data-currency="cad">
         </script>
       <% end %>
     </div>
   </div>
+  <% else %>
+    YOU CANT HAVE AN EMPTY CART! GO
+    <%= link_to("HOME", root_path) %>
+  <%end%>
 
 </section>
