@@ -41,7 +41,10 @@ cat1.products.create!({
   image: open_asset('apparel1.jpg'),
   quantity: 0,
   price: 64.99
+
 })
+
+
 
 cat1.products.create!({
   name:  'Women\'s Zebra pants',
@@ -131,6 +134,15 @@ cat3.products.create!({
   quantity: 23,
   price: 2_483.75
 })
+
+5.times do |r|
+Review.create!({
+    product_id: Faker::Number.between(1, 4),
+    user_id: Faker::Number.number(1),
+    description: Faker::Lorem.paragraph,
+    rating: Faker::Number.between(1, 5)
+  })
+end
 
 
 puts "DONE!"

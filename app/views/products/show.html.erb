@@ -22,8 +22,44 @@
           <dd><%= @product.quantity %></dd>
           <dt>Price</dt>
           <dd><%= @product.price %></dd>
+          <h4 class="reviews" >Reviews</h4>
+          <br />
+          <% @product.reviews.each do |work|%>
+            <dt>Description</dt>
+            <dd><%= work.description %></dd>
+
+            <dt>Rating</dt>
+            <dd><%= work.rating %></dd>
+            <br />
+            <% if current_user %>
+            <% if work.user_id == current_user.id %>
+              <aside>
+              <button class="btn-danger">
+              <%= link_to "Delete", [@product, work],:method => :delete %>
+              </button>
+              </aside>
+            <% end %>
+            <% end %>
+          <% end %>
         </dl>
       </div>
+    </div>
+
+    <div>
+      <% if current_user %>
+      <h4>Add a Review</h4>
+      <%= form_for [@product, @review] do |f| %>
+      <% @review.errors.full_messages.each do |e| %>
+      <%= e.inspect %>
+      <% end %>
+
+        <%= f.text_area :description %>
+        <%= f.select :rating, [['1'],['2'],['3'],['4'],['5']] %>
+        <%= f.submit "Submit Review" %>
+
+      <% end %>
+      <% end %>
+
     </div>
 
   </article>
