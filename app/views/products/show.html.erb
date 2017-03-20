@@ -25,21 +25,24 @@
           <h4 class="reviews" >Reviews</h4>
           <br />
           <h5> Average Rating : <%= @product.reviews.average(:rating) %> </h5>
-          <% @product.reviews.each do |work|%>
-            <dt>Description</dt>
-            <dd><%= work.description %></dd>
+          <% @product.reviews.where.not(id: nil).each do |work|%>
+            <div class="well">
 
-            <dt>Rating</dt>
-            <dd><%= work.rating %></dd>
+            <h4>Description</h4>
+            <p><%= work.description %></p>
+
+            <h4>Rating</h4>
+            <p><%= work.rating %></p>
             <br />
             <% if current_user %>
-            <% if work.user_id == current_user.id %>
-              <aside>
-              <button class="btn-danger">
-              <%= link_to "Delete", [@product, work],:method => :delete %>
-              </button>
-              </aside>
-            <% end %>
+              <% if work.user_id == current_user.id %>
+
+                <button class="btn-danger">
+                <%= link_to "Delete", [@product, work],:method => :delete %>
+                </button>
+
+              <% end %>
+              </div>
             <% end %>
           <% end %>
         </dl>
@@ -53,8 +56,7 @@
       <% @review.errors.full_messages.each do |e| %>
       <%= e.inspect %>
       <% end %>
-
-        <%= f.text_area :description %>
+        <div class="desc"><%= f.text_area :description %></div>
         <%= f.select :rating, [['1'],['2'],['3'],['4'],['5']] %>
         <%= f.submit "Submit Review" %>
 
