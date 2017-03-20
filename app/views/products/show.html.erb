@@ -24,6 +24,7 @@
           <dd><%= @product.price %></dd>
           <h4 class="reviews" >Reviews</h4>
           <br />
+          <h5> Average Rating : <%= @product.reviews.average(:rating) %> </h5>
           <% @product.reviews.each do |work|%>
             <dt>Description</dt>
             <dd><%= work.description %></dd>
