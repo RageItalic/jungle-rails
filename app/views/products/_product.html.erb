@@ -13,7 +13,7 @@
     <%= link_to add_item_cart_path(product_id: product.id), class: 'btn btn-primary', method: :put do %>
       <%= fa_icon "shopping-cart", text: 'Add' %>
     <% end %>
-    <%= link_to product, class: 'btn btn-default pull-right' do %>
+    <%= link_to product, class: 'btn btn-default pull-right', id: "product-#{product.id}" do %>
       Details &raquo;
     <% end %>
   </footer>
