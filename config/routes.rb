@@ -28,8 +28,8 @@ Rails.application.routes.draw do
     # http_basic_authenticate_with name: ENV['AUTH_NAME'], password: ENV['AUTH_PASSWORD'], except: :index
 
     root to: 'dashboard#show'
-    resources :products, except: [:edit, :update, :show]
-    resources :categories
+    resources :products, except: [:edit, :update, :show, :destroy]
+    resources :categories, only: [:index, :new, :create]
   end
 
   # The priority is based upon order of creation: first created -> highest priority.
